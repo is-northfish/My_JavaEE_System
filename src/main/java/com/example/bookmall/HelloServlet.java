@@ -1,4 +1,4 @@
-package com.example.web;
+package com.example.bookmall;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
