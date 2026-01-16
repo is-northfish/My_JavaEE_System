@@ -1,0 +1,40 @@
+{
+  "milestones": [
+    {
+      "title": "v0.1 - 数据库与基础设施",
+      "description": "完成数据库设计、初始化脚本、实体类定义和数据库连接工具类实现，为后续功能提供数据层基础。\n\n**周期**: 1周  \n**优先级**: 必做\n\n## 验收标准\n- ✅ 数据库表结构正确，主外键关系清晰\n- ✅ DBUtil能正常获取数据库连接\n- ✅ 实体类与数据库字段一一对应\n- ✅ 初始化脚本可重复执行（包含测试数据）\n- ✅ Docker Compose可正常启动MySQL + Tomcat\n\n## 关键交付物\n- 数据库ER图与设计文档\n- MySQL初始化脚本（建表、测试数据）\n- 4个实体类：User、Book、Category、CartItem\n- DBUtil工具类",
+      "due_date": null,
+      "labels": ["database", "infrastructure", "v0.1"]
+    },
+    {
+      "title": "v0.2 - 用户认证模块（注册/登录）",
+      "description": "实现用户注册、登录、退出的全流程，使用Session维持登录态，支持密码安全存储和登录状态验证。\n\n**周期**: 2周  \n**优先级**: 必做  \n**依赖**: v0.1\n\n## 验收标准\n- ✅ 新用户能成功注册，数据正确存入数据库\n- ✅ 注册时验证用户名是否已存在，防止重复\n- ✅ 用户能使用正确的用户名和密码成功登录\n- ✅ 登录成功后Session中能获取用户信息\n- ✅ 用户能成功退出，Session被清除\n- ✅ 登录过滤器能正确拦截未登录访问\n- ✅ 密码使用MD5或bcrypt加密存储，不存储明文\n- ✅ 所有输入验证完整，无SQL注入漏洞\n\n## 关键交付物\n- UserDAO（查询、插入、更新用户）\n- UserService（注册、登录业务逻辑）\n- LoginServlet、RegisterServlet、LogoutServlet\n- LoginFilter（登录状态验证）\n- PasswordUtil（密码加密）\n- login.jsp、register.jsp",
+      "due_date": null,
+      "labels": ["authentication", "security", "v0.2"]
+    },
+    {
+      "title": "v0.3 - 商品浏览模块",
+      "description": "实现图书列表展示、按分类筛选、图书详情查询功能，提供良好的商品浏览体验。\n\n**周期**: 2周  \n**优先级**: 必做  \n**依赖**: v0.1, v0.2\n\n## 验收标准\n- ✅ 图书列表能展示所有图书，信息完整\n- ✅ 支持按分类筛选显示符合条件的图书\n- ✅ 分页功能正常（上一页、下一页、总页数显示）\n- ✅ 点击图书能进入详情页，显示完整信息\n- ✅ 分类菜单能正确加载所有分类\n- ✅ 已登录用户能访问，未登录也可浏览\n- ✅ 页面样式美观，用户体验良好\n- ✅ 所有数据库查询使用PreparedStatement\n\n## 关键交付物\n- CategoryDAO（查询、新增、删除分类）\n- BookDAO（查询、新增、更新、删除图书）\n- CategoryService、BookService\n- BookListServlet、BookDetailServlet、CategoryServlet\n- index.jsp（首页/图书列表）、book-detail.jsp（图书详情）",
+      "due_date": null,
+      "labels": ["feature", "product", "v0.3"]
+    },
+    {
+      "title": "v0.4 - 购物车模块",
+      "description": "实现购物车的添加、查看、修改、删除功能，使用Session存储购物车数据，支持实时计算总价。\n\n**周期**: 2周  \n**优先级**: 必做  \n**依赖**: v0.2, v0.3\n\n## 验收标准\n- ✅ 用户能将图书添加到购物车，后续相同图书数量累加\n- ✅ 购物车页面能正确显示所有商品及数量\n- ✅ 用户能修改购物车中商品的数量\n- ✅ 用户能从购物车删除单个商品\n- ✅ 购物车总价计算正确（单价×数量求和）\n- ✅ 用户退出登录后购物车清空\n- ✅ 购物车数据存储在Session中\n- ✅ 添加购物车时验证库存是否充足\n- ✅ 页面UI美观，交互流畅\n\n## 关键交付物\n- CartService（购物车业务逻辑）\n- AddCartServlet、UpdateCartServlet、RemoveCartServlet、CartServlet\n- cart.jsp（购物车页面）",
+      "due_date": null,
+      "labels": ["feature", "core", "v0.4"]
+    },
+    {
+      "title": "v0.5 - 代码优化与安全加固",
+      "description": "对既有代码进行全面优化，加强安全防护、异常处理、代码规范，为v1.0正式版做准备。\n\n**周期**: 1周  \n**优先级**: 必做  \n**依赖**: v0.2, v0.3, v0.4\n\n## 验收标准\n- ✅ 无明显的代码坏味道（重复、过长方法等）\n- ✅ 所有数据库操作使用PreparedStatement\n- ✅ 异常处理完整，无堆栈信息泄露\n- ✅ 代码注释充分，关键逻辑清晰\n- ✅ 单元测试覆盖主要业务逻辑\n- ✅ 所有功能在优化后仍能正常运行\n- ✅ 性能无明显下降\n\n## 关键任务\n- XSS防护：所有JSP页面使用EL表达式\n- SQL注入防护：全量审查PreparedStatement使用\n- 会话安全：添加HttpOnly、Secure标志\n- 异常处理：统一异常类与错误页面\n- 单元测试：UserService、BookService、CartService\n- 代码审查：消除重复、改进命名、补充注释",
+      "due_date": null,
+      "labels": ["optimization", "security", "testing", "v0.5"]
+    },
+    {
+      "title": "v1.0 - 正式版发布与文档完善",
+      "description": "完成项目的最终文档编写、部署指南、用户手册，确保项目可在生产环境正常运行。\n\n**周期**: 1周  \n**优先级**: 必做  \n**依赖**: v0.5\n\n## 验收标准\n- ✅ 所有文档完整、清晰、可执行\n- ✅ 部署指南能被独立执行成功\n- ✅ 新手用户能快速上手系统\n- ✅ API文档与实现代码一致\n- ✅ 无已知的关键BUG\n- ✅ 代码提交历史清晰规范\n\n## 关键交付物\n- API文档（所有端点、参数、返回值）\n- 部署指南（系统要求、Docker启动、手动部署）\n- 用户手册（注册、登录、浏览、购物车使用说明）\n- 开发指南（项目结构、代码规范、本地开发环境）\n- CHANGELOG（版本变化记录）\n- README更新（项目简介、快速开始）\n- v1.0 Release标签与说明",
+      "due_date": null,
+      "labels": ["documentation", "release", "v1.0"]
+    }
+  ]
+}

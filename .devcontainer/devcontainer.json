@@ -7,9 +7,9 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/java:1": {
-      "version": "17"
-    },
-    "ghcr.io/devcontainers/features/maven:1": {}
+      "version": "none",
+      "installMaven": "true"
+    }
   },
   "customizations": {
     "vscode": {
@@ -21,5 +21,5 @@
     }
   },
   "forwardPorts": [8080, 3306],
-  "postCreateCommand": "mvn -v && java -version"
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y git-lfs && git lfs install && mvn -v && java -version"
 }
