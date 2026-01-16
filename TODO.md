@@ -39,7 +39,7 @@
 - [√] RegisterServlet
 - [√] LoginServlet（session：userId / username / role）
 - [√] LogoutServlet
-- [ ] LoginFilter（拦 /cart/*）
+- [√] LoginFilter（拦 /cart/*）
 - [ ] AdminFilter（拦 /admin/*）
 
 > v0.2 结束标准：  
