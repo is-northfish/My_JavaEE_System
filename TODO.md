@@ -12,7 +12,7 @@
 
 - [√] docker-compose 固化（MySQL + Tomcat）
 - [√] init.sql：建表（user / category / book）
-- [ ] 约束与索引（username UNIQUE，分类外键 RESTRICT）
+- [√] 约束与索引（username UNIQUE，分类外键 RESTRICT）
 - [ ] utf8mb4 字符集 + Asia/Shanghai 时区
 - [ ] 基础测试数据（分类 + 图书）
 - [ ] 管理员种子账号（ADMIN）
