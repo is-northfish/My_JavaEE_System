@@ -41,6 +41,8 @@ mvn clean package
 ### 4. 访问系统
 本项目在 Codespaces 中通过 Port Forward 访问，容器内 localhost:8080 可能不可达。
 - 首页：`http://<你的 Codespaces 访问地址>:8080/`
+- 注册：`http://<你的 Codespaces 访问地址>:8080/register.jsp`
+- 登录：`http://<你的 Codespaces 访问地址>:8080/login.jsp`
 - 数据库测试：`http://<你的 Codespaces 访问地址>:8080/dbCheck`
 - Hello 测试：`http://<你的 Codespaces 访问地址>:8080/hello`
 
@@ -104,6 +106,12 @@ chmod -R 755 src/
 chmod 644 pom.xml
 ```
 
+## 登录说明
+- 注册：进入 `register.jsp`，提交后跳转到 `login.jsp`
+- 登录：进入 `login.jsp`，成功后跳转首页并在 Session 中写入 `userId/username/role`
+- 退出：访问 `/logout` 退出登录
+- 管理员：`admin / admin123`，普通用户无法访问 `/admin/*`
+
 ## 项目结构
 ```
 .
@@ -112,6 +120,7 @@ chmod 644 pom.xml
 │   │   ├── filter/         # 过滤器（编码、登录验证）
 │   │   ├── servlet/        # 控制器
 │   │   ├── util/           # 工具类（DBUtil）
+│   │   ├── entity/         # 实体
 │   │   ├── dao/            # 数据访问层
 │   │   └── service/        # 业务逻辑层
 │   ├── resources/
@@ -129,8 +138,8 @@ chmod 644 pom.xml
 ## 开发流程
 1. 修改代码
 2. 运行 `mvn clean package` 构建
-3. 重启 Tomcat：`docker-compose restart tomcat`
-4. 访问 http://localhost:8080/ 测试
+3. 重启 Tomcat：`docker compose restart tomcat`
+4. 通过 Codespaces Port Forward 访问系统
 
 ## 数据库说明
 
