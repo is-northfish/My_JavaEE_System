@@ -51,11 +51,11 @@
 
 ## v0.3 商品浏览（不分页版）
 
-- [ ] CategoryDAO.listAll
-- [ ] BookDAO.findById
-- [ ] BookDAO.listByCategory
-- [ ] BookListServlet（按分类）
-- [ ] BookDetailServlet
+- [√] CategoryDAO.listAll
+- [√] BookDAO.findById
+- [√] BookDAO.listByCategory
+- [√] BookListServlet（按分类）
+- [√] BookDetailServlet
 - [ ] 首页 JSP（分类 + 图书列表）
 - [ ] 详情页 JSP
 
@@ -79,30 +79,80 @@
 > - 数量、总价计算正确  
 
 ---
+v0.5 后台管理（最小可控 CRUD）
+后台基础
 
-## v0.5 后台管理（最小 CRUD）
+ admin/index.jsp（后台首页 + 导航）
 
-### 后台基础
-- [ ] admin/index.jsp（入口 + 导航）
+链接入口：分类管理 / 图书管理 / 用户管理
 
-### 分类管理
-- [ ] 分类列表
-- [ ] 新增分类
-- [ ] 删除分类（有书则提示不可删）
+依赖：AdminFilter（已完成）
 
-### 图书管理
-- [ ] 图书列表
-- [ ] 新增图书（选择分类）
-- [ ] 删除图书
+分类管理（Category）
 
-### 用户管理
-- [ ] 用户列表
-- [ ] 禁用用户（status=0）
+ CategoryDAO.listAll（后台复用）
 
-> v0.5 结束标准：  
-> - 管理员能完成基本管理操作  
-> - 普通用户无法访问后台  
+ AdminCategoryListServlet（/admin/categories）
 
+ admin/category_list.jsp（分类列表）
+
+ CategoryDAO.insert
+
+ AdminCategoryAddServlet（GET 表单 / POST 提交）
+
+ admin/category_add.jsp（新增分类）
+
+ CategoryDAO.deleteById
+
+ AdminCategoryDeleteServlet（/admin/category/delete）
+
+行为：若分类下存在图书 → 提示“不可删除”
+
+（可选但推荐）
+
+ CategoryDAO.update
+
+ AdminCategoryEditServlet
+
+ admin/category_edit.jsp（编辑分类）
+
+图书管理（Book）
+
+ BookDAO.listAll（后台列表用）
+
+ AdminBookListServlet（/admin/books）
+
+ admin/book_list.jsp（图书列表）
+
+ BookDAO.insert
+
+ AdminBookAddServlet（GET 表单 / POST 提交）
+
+ admin/book_add.jsp（新增图书，分类下拉）
+
+ BookDAO.update
+
+ AdminBookEditServlet
+
+ admin/book_edit.jsp（编辑图书）
+
+ BookDAO.deleteById
+
+ AdminBookDeleteServlet（/admin/book/delete）
+
+用户管理（User）
+
+ UserDAO.listAll（不返回密码字段）
+
+ AdminUserListServlet（/admin/users）
+
+ admin/user_list.jsp（用户列表）
+
+ UserDAO.updateStatus
+
+ AdminUserDisableServlet（/admin/user/disable）
+
+行为：status=0 禁用用户，禁止其登录
 ---
 
 ## v1.0 提交与展示（只做必要项）
