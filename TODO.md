@@ -32,7 +32,7 @@
 ## v0.2 用户认证（前台最小闭环）
 
 - [√] UserDAO（findByUsername / insert / findById）
-- [ ] PasswordUtil（盐 + MD5）
+- [√] PasswordUtil（盐 + MD5）
 - [ ] UserService（register / login）
 - [ ] register.jsp（错误回显）
 - [ ] login.jsp（错误回显）
