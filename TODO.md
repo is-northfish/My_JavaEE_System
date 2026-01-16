@@ -40,7 +40,7 @@
 - [√] LoginServlet（session：userId / username / role）
 - [√] LogoutServlet
 - [√] LoginFilter（拦 /cart/*）
-- [ ] AdminFilter（拦 /admin/*）
+- [√] AdminFilter（拦 /admin/*）
 
 > v0.2 结束标准：  
 > - 能注册 → 登录 → 退出  
