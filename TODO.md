@@ -16,7 +16,7 @@
 - [√] utf8mb4 字符集 + Asia/Shanghai 时区
 - [√] 基础测试数据（分类 + 图书）
 - [√] 管理员种子账号（ADMIN）
-- [ ] db.properties（host=mysql）
+- [√] db.properties（host=mysql）
 - [ ] DBUtil（DriverManager + properties）
 - [ ] dbCheck 页面（能 SELECT NOW()）
 - [ ] EncodingFilter（UTF-8）
