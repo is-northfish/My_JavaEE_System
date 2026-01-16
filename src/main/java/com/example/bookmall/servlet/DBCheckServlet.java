@@ -1,6 +1,7 @@
 package com.example.bookmall.servlet;
 
-import com.example.bookmall.util.DBUtil;
+import com.example.bookmall.entity.DBStatus;
+import com.example.bookmall.service.DBCheckService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,10 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * 数据库连接测试页面
@@ -19,24 +17,19 @@ import java.sql.Statement;
  */
 @WebServlet("/dbCheck")
 public class DBCheckServlet extends HttpServlet {
-    
+    private final DBCheckService dbCheckService = new DBCheckService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
         
         resp.setContentType("text/html;charset=UTF-8");
         
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        
         try {
-            // 获取连接
-            conn = DBUtil.getConnection();
-            
-            // 执行简单查询
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT NOW() as current_time, DATABASE() as db_name");
+            DBStatus status = dbCheckService.getStatus();
+            if (status == null) {
+                throw new SQLException("数据库未返回状态信息");
+            }
             
             StringBuilder html = new StringBuilder();
             html.append("<!DOCTYPE html>");
@@ -46,17 +39,15 @@ public class DBCheckServlet extends HttpServlet {
             html.append("</head>");
             html.append("<body>");
             html.append("<h1>✅ 数据库连接成功</h1>");
-            
-            if (rs.next()) {
-                html.append("<p><strong>当前时间：</strong>").append(rs.getString("current_time")).append("</p>");
-                html.append("<p><strong>数据库名：</strong>").append(rs.getString("db_name")).append("</p>");
-            }
+            html.append("<p><strong>当前时间：</strong>").append(status.getCurrentTime()).append("</p>");
+            html.append("<p><strong>数据库名：</strong>").append(status.getDbName()).append("</p>");
             
             html.append("<p><a href=\"/\">返回首页</a></p>");
             html.append("</body>");
             html.append("</html>");
             
             resp.getWriter().write(html.toString());
+            logResult(req, true, null);
             
         } catch (SQLException e) {
             resp.getWriter().write("<!DOCTYPE html>");
@@ -67,12 +58,18 @@ public class DBCheckServlet extends HttpServlet {
             resp.getWriter().write("<p>错误信息：" + e.getMessage() + "</p>");
             resp.getWriter().write("<p><a href=\"/\">返回首页</a></p>");
             resp.getWriter().write("</body></html>");
+            logResult(req, false, e.getMessage());
             e.printStackTrace();
-        } finally {
-            // 关闭资源
-            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
-            if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
-            DBUtil.close(conn);
+        }
+    }
+
+    private void logResult(HttpServletRequest req, boolean success, String message) {
+        String uri = req.getRequestURI();
+        String result = success ? "SUCCESS" : "FAIL";
+        if (message == null || message.isEmpty()) {
+            System.out.println("DBCheckServlet " + uri + " " + result);
+        } else {
+            System.out.println("DBCheckServlet " + uri + " " + result + " - " + message);
         }
     }
 }

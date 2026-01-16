@@ -18,7 +18,7 @@
 - [√] 管理员种子账号（ADMIN）
 - [√] db.properties（host=mysql）
 - [√] DBUtil（DriverManager + properties）
-- [ ] dbCheck 页面（能 SELECT NOW()）
+- [√] dbCheck 页面（能 SELECT NOW()）
 - [ ] EncodingFilter（UTF-8）
 - [ ] README：启动 / 重置数据库 / 常见坑
 
