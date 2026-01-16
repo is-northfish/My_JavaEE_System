@@ -34,7 +34,7 @@
 - [√] UserDAO（findByUsername / insert / findById）
 - [√] PasswordUtil（盐 + MD5）
 - [√] UserService（register / login）
-- [ ] register.jsp（错误回显）
+- [√] register.jsp（错误回显）
 - [ ] login.jsp（错误回显）
 - [ ] RegisterServlet
 - [ ] LoginServlet（session：userId / username / role）
