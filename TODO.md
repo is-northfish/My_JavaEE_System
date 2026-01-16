@@ -36,7 +36,7 @@
 - [√] UserService（register / login）
 - [√] register.jsp（错误回显）
 - [√] login.jsp（错误回显）
-- [ ] RegisterServlet
+- [√] RegisterServlet
 - [ ] LoginServlet（session：userId / username / role）
 - [ ] LogoutServlet
 - [ ] LoginFilter（拦 /cart/*）
