@@ -20,7 +20,7 @@
 - [√] DBUtil（DriverManager + properties）
 - [√] dbCheck 页面（能 SELECT NOW()）
 - [√] EncodingFilter（UTF-8）
-- [ ] README：启动 / 重置数据库 / 常见坑
+- [√] README：启动 / 重置数据库 / 常见坑
 
 > v0.1 结束标准：  
 > - 数据库可一键重置  

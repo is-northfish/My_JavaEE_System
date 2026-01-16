@@ -13,19 +13,20 @@ JavaEE期末作业 - Java Web 图书商城系统
 ### 1. 启动环境（Docker Compose）
 ```bash
 # 启动 MySQL 和 Tomcat 容器
-docker-compose up -d
+docker compose up -d
 
 # 查看容器状态
-docker-compose ps
+docker compose ps
 ```
 
 ### 2. 初始化数据库
 ```bash
-# 方式一：使用 MySQL 客户端
-docker exec -i my_javaee_system-mysql-1 mysql -uroot -proot < init.sql
+# 方式一：直接初始化（推荐）
+docker compose exec -T mysql \
+  mysql -uapp -papp123456 < init.sql
 
 # 方式二：进入容器手动执行
-docker exec -it my_javaee_system-mysql-1 mysql -uroot -proot
+docker compose exec mysql mysql -uapp -papp123456
 # 然后执行：source /path/to/init.sql
 ```
 
@@ -38,9 +39,10 @@ mvn clean package
 ```
 
 ### 4. 访问系统
-- 首页：http://localhost:8080/
-- 数据库测试：http://localhost:8080/dbCheck
-- Hello测试：http://localhost:8080/hello
+本项目在 Codespaces 中通过 Port Forward 访问，容器内 localhost:8080 可能不可达。
+- 首页：`http://<你的 Codespaces 访问地址>:8080/`
+- 数据库测试：`http://<你的 Codespaces 访问地址>:8080/dbCheck`
+- Hello 测试：`http://<你的 Codespaces 访问地址>:8080/hello`
 
 ### 默认账号
 - 管理员账号：`admin` / `admin123`
@@ -48,20 +50,21 @@ mvn clean package
 ## 重置数据库
 ```bash
 # 停止容器
-docker-compose down
+docker compose down
 
 # 删除数据卷（会清空所有数据）
 docker volume rm my_javaee_system_mysql-data
 
 # 重新启动并初始化
-docker-compose up -d
-docker exec -i my_javaee_system-mysql-1 mysql -uroot -proot < init.sql
+docker compose up -d
+docker compose exec -T mysql \
+  mysql -uapp -papp123456 < init.sql
 ```
 
 ## 常见问题
 
 ### 1. 容器启动失败
-**问题**：`docker-compose up -d` 失败  
+**问题**：`docker compose up -d` 失败  
 **解决**：
 - 检查端口 3306 和 8080 是否被占用
 - 确保 Docker 服务正在运行
@@ -69,9 +72,9 @@ docker exec -i my_javaee_system-mysql-1 mysql -uroot -proot < init.sql
 ### 2. 数据库连接失败
 **问题**：访问 /dbCheck 显示连接失败  
 **解决**：
-- 确认 MySQL 容器正在运行：`docker-compose ps`
+- 确认 MySQL 容器正在运行：`docker compose ps`
 - 检查 db.properties 配置是否正确
-- 确认数据库已初始化：`docker exec -it my_javaee_system-mysql-1 mysql -uroot -proot -e "USE webshop; SHOW TABLES;"`
+- 确认数据库已初始化：`docker compose exec mysql mysql -uapp -papp123456 -e "USE webshop; SHOW TABLES;"`
 
 ### 3. 中文乱码
 **问题**：页面或数据库中文显示乱码  
@@ -85,11 +88,11 @@ docker exec -i my_javaee_system-mysql-1 mysql -uroot -proot < init.sql
 **解决**：
 ```bash
 # 重启 Tomcat 容器
-docker-compose restart tomcat
+docker compose restart tomcat
 
 # 或者重新构建并重启
 mvn clean package
-docker-compose restart tomcat
+docker compose restart tomcat
 ```
 
 ### 5. 权限问题
