@@ -45,9 +45,15 @@ public class DBUtil {
      * @return Connection 对象
      * @throws SQLException 连接失败时抛出
      */
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+    // 修改后的 getConnection 方法
+public static Connection getConnection() throws SQLException {
+    Connection conn = DriverManager.getConnection(url, user, password);
+    // 强制当前数据库会话使用 utf8mb4，解决 Java 驱动与服务器的协商问题
+    try (java.sql.Statement stmt = conn.createStatement()) {
+        stmt.execute("SET NAMES utf8mb4");
     }
+    return conn;
+}
 
     /**
      * 关闭连接

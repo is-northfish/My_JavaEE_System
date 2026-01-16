@@ -56,7 +56,7 @@
 - [√] BookDAO.listByCategory
 - [√] BookListServlet（按分类）
 - [√] BookDetailServlet
-- [ ] 首页 JSP（分类 + 图书列表）
+- [√] 首页 JSP（分类 + 图书列表）
 - [ ] 详情页 JSP
 
 > v0.3 结束标准：  
