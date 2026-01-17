@@ -57,7 +57,7 @@
 - [√] BookListServlet（按分类）
 - [√] BookDetailServlet
 - [√] 首页 JSP（分类 + 图书列表）
-- [ ] 详情页 JSP
+- [√] 详情页 JSP
 
 > v0.3 结束标准：  
 > - 不登录也能浏览分类和图书  
