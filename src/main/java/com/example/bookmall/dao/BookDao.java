@@ -4,6 +4,7 @@ import com.example.bookmall.entity.Book;
 import com.example.bookmall.util.DBUtil;
 
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,6 +40,29 @@ public class BookDao {
         }
 
         return books;
+    }
+
+    public long insert(Book book) throws SQLException {
+        String sql = "INSERT INTO book (category_id, name, price, stock) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setLong(1, book.getCategoryId());
+            ps.setString(2, book.getName());
+            ps.setBigDecimal(3, book.getPrice());
+            ps.setInt(4, book.getStock());
+
+            int affected = ps.executeUpdate();
+            if (affected == 0) {
+                return 0;
+            }
+            try (ResultSet keys = ps.getGeneratedKeys()) {
+                if (keys.next()) {
+                    return keys.getLong(1);
+                }
+                return 0;
+            }
+        }
     }
 
     public List<Book> listByCategory(long categoryId) throws SQLException {
