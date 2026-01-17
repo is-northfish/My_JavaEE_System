@@ -60,4 +60,47 @@ public class BookService {
         }
         return null;
     }
+
+    public String updateBook(long id, long categoryId, String name, String priceText, String stockText) throws SQLException {
+        if (id <= 0) {
+            return "图书不存在";
+        }
+        if (categoryId <= 0) {
+            return "分类不合法";
+        }
+        if (name == null || name.trim().isEmpty()) {
+            return "书名不能为空";
+        }
+        if (priceText == null || priceText.trim().isEmpty()) {
+            return "价格不能为空";
+        }
+        if (stockText == null || stockText.trim().isEmpty()) {
+            return "库存不能为空";
+        }
+
+        BigDecimal price;
+        int stock;
+        try {
+            price = new BigDecimal(priceText.trim());
+            stock = Integer.parseInt(stockText.trim());
+        } catch (NumberFormatException e) {
+            return "价格或库存格式不正确";
+        }
+        if (stock < 0) {
+            return "库存不能为负数";
+        }
+
+        Book book = new Book();
+        book.setId(id);
+        book.setCategoryId(categoryId);
+        book.setName(name.trim());
+        book.setPrice(price);
+        book.setStock(stock);
+
+        int affected = bookDao.update(book);
+        if (affected == 0) {
+            return "更新图书失败";
+        }
+        return null;
+    }
 }

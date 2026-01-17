@@ -65,6 +65,20 @@ public class BookDao {
         }
     }
 
+    public int update(Book book) throws SQLException {
+        String sql = "UPDATE book SET category_id = ?, name = ?, price = ?, stock = ? WHERE id = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, book.getCategoryId());
+            ps.setString(2, book.getName());
+            ps.setBigDecimal(3, book.getPrice());
+            ps.setInt(4, book.getStock());
+            ps.setLong(5, book.getId());
+            return ps.executeUpdate();
+        }
+    }
+
     public List<Book> listByCategory(long categoryId) throws SQLException {
         String sql = "SELECT id, category_id, name, price, stock FROM book WHERE category_id = ? ORDER BY id";
         List<Book> books = new ArrayList<>();
