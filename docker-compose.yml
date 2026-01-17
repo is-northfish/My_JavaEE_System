@@ -13,7 +13,13 @@ services:
   mysql:
     image: mysql:8.0
     restart: unless-stopped
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time-zone=+08:00
+    # 核心变动：增加了 init-connect 和 skip-character-set-client-handshake
+    command: 
+      - --character-set-server=utf8mb4 
+      - --collation-server=utf8mb4_unicode_ci 
+      - --default-time-zone=+08:00
+      - --init-connect='SET NAMES utf8mb4'
+      - --skip-character-set-client-handshake
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: webshop
