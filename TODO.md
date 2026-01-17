@@ -106,7 +106,7 @@ v0.5 后台管理（最小可控 CRUD）
 
  AdminCategoryDeleteServlet（/admin/category/delete）
 
-行为：若分类下存在图书 → 提示“不可删除”
+ 行为：若分类下存在图书 → 提示“不可删除”
 
 （可选但推荐）
 

@@ -6,6 +6,7 @@
   if (categories == null) {
     categories = java.util.Collections.emptyList();
   }
+  String error = (String) request.getAttribute("error");
 %>
 <!doctype html>
 <html>
@@ -22,6 +23,10 @@
   <a href="<%= request.getContextPath() %>/admin/index.jsp">返回后台</a>
 </p>
 
+<% if (error != null && !error.isEmpty()) { %>
+  <p style="color:red;"><%= error %></p>
+<% } %>
+
 <% if (categories.isEmpty()) { %>
   <p>暂无分类</p>
 <% } else { %>
@@ -36,7 +41,7 @@
         <td><%= category.getId() %></td>
         <td><%= category.getName() %></td>
         <td>
-          <a href="<%= request.getContextPath() %>/admin/category_edit.jsp?id=<%= category.getId() %>">编辑</a>
+          <a href="<%= request.getContextPath() %>/admin/category/edit?id=<%= category.getId() %>">编辑</a>
           |
           <form method="post" action="<%= request.getContextPath() %>/admin/category/delete" style="display:inline;">
             <input type="hidden" name="id" value="<%= category.getId() %>"/>

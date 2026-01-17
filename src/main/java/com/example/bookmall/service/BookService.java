@@ -16,4 +16,8 @@ public class BookService {
     public Book findById(long id) throws SQLException {
         return bookDao.findById(id);
     }
+
+    public List<Book> listAll() throws SQLException {
+        return bookDao.listAll();
+    }
 }

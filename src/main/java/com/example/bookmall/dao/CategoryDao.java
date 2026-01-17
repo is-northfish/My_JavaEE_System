@@ -48,4 +48,40 @@ public class CategoryDao {
             }
         }
     }
+
+    public int deleteById(long id) throws SQLException {
+        String sql = "DELETE FROM category WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            return ps.executeUpdate();
+        }
+    }
+
+    public int update(Category category) throws SQLException {
+        String sql = "UPDATE category SET name = ? WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, category.getName());
+            ps.setLong(2, category.getId());
+            return ps.executeUpdate();
+        }
+    }
+
+    public Category findById(long id) throws SQLException {
+        String sql = "SELECT id, name FROM category WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Category category = new Category();
+                    category.setId(rs.getLong("id"));
+                    category.setName(rs.getString("name"));
+                    return category;
+                }
+                return null;
+            }
+        }
+    }
 }

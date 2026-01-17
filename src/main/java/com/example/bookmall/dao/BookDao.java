@@ -26,6 +26,21 @@ public class BookDao {
         }
     }
 
+    public List<Book> listAll() throws SQLException {
+        String sql = "SELECT id, category_id, name, price, stock FROM book ORDER BY id";
+        List<Book> books = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                books.add(mapRow(rs));
+            }
+        }
+
+        return books;
+    }
+
     public List<Book> listByCategory(long categoryId) throws SQLException {
         String sql = "SELECT id, category_id, name, price, stock FROM book WHERE category_id = ? ORDER BY id";
         List<Book> books = new ArrayList<>();
@@ -41,6 +56,21 @@ public class BookDao {
         }
 
         return books;
+    }
+
+    public int countByCategory(long categoryId) throws SQLException {
+        String sql = "SELECT COUNT(*) AS cnt FROM book WHERE category_id = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, categoryId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("cnt");
+                }
+                return 0;
+            }
+        }
     }
 
     private Book mapRow(ResultSet rs) throws SQLException {
