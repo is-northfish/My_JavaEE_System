@@ -17,7 +17,7 @@
 <h2>分类列表</h2>
 
 <p>
-  <a href="<%= request.getContextPath() %>/admin/category_add.jsp">新增分类</a>
+  <a href="<%= request.getContextPath() %>/admin/category/add">新增分类</a>
   |
   <a href="<%= request.getContextPath() %>/admin/index.jsp">返回后台</a>
 </p>

@@ -12,4 +12,13 @@ public class CategoryService {
     public List<Category> listAll() throws SQLException {
         return categoryDao.listAll();
     }
+
+    public long addCategory(String name) throws SQLException {
+        if (name == null || name.trim().isEmpty()) {
+            return 0;
+        }
+        Category category = new Category();
+        category.setName(name.trim());
+        return categoryDao.insert(category);
+    }
 }
