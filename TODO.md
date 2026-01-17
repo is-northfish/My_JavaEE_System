@@ -68,11 +68,11 @@
 ## v0.4 购物车（Session 版）
 
 - [√] CartItem（Book + quantity）
-- [ ] CartService（Map<bookId, CartItem>）
-- [ ] 加入购物车（数量累加）
-- [ ] 购物车列表 Servlet
-- [ ] cart.jsp（展示 / 改数量 / 删除）
-- [ ] 库存校验（quantity <= stock）
+- [√] CartService（Map<bookId, CartItem>）
+- [√] 加入购物车（数量累加）
+- [√] 购物车列表 Servlet
+- [√] cart.jsp（展示 / 改数量 / 删除）
+- [√] 库存校验（quantity <= stock）
 
 > v0.4 结束标准：  
 > - 登录后可加入购物车  
