@@ -43,6 +43,8 @@ mvn clean package
 - 首页：`http://<你的 Codespaces 访问地址>:8080/`
 - 注册：`http://<你的 Codespaces 访问地址>:8080/register.jsp`
 - 登录：`http://<你的 Codespaces 访问地址>:8080/login.jsp`
+- 分类图书列表：`http://<你的 Codespaces 访问地址>:8080/books?categoryId=1`
+- 图书详情：`http://<你的 Codespaces 访问地址>:8080/book?id=1`
 - 数据库测试：`http://<你的 Codespaces 访问地址>:8080/dbCheck`
 - Hello 测试：`http://<你的 Codespaces 访问地址>:8080/hello`
 
