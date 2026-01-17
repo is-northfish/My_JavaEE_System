@@ -45,6 +45,8 @@ mvn clean package
 - 登录：`http://<你的 Codespaces 访问地址>:8080/login.jsp`
 - 分类图书列表：`http://<你的 Codespaces 访问地址>:8080/books?categoryId=1`
 - 图书详情：`http://<你的 Codespaces 访问地址>:8080/book?id=1`
+- 购物车列表：`http://<你的 Codespaces 访问地址>:8080/cart/list`
+- 后台首页：`http://<你的 Codespaces 访问地址>:8080/admin/index.jsp`
 - 数据库测试：`http://<你的 Codespaces 访问地址>:8080/dbCheck`
 - Hello 测试：`http://<你的 Codespaces 访问地址>:8080/hello`
 
@@ -113,6 +115,18 @@ chmod 644 pom.xml
 - 登录：进入 `login.jsp`，成功后跳转首页并在 Session 中写入 `userId/username/role`
 - 退出：访问 `/logout` 退出登录
 - 管理员：`admin / admin123`，普通用户无法访问 `/admin/*`
+
+## 购物车说明
+- 加入购物车：详情页点击“加入购物车”（POST `/cart/add`）
+- 查看购物车：访问 `/cart/list`
+- 更新数量：购物车页提交数量（POST `/cart/update`）
+- 删除商品：购物车页删除（POST `/cart/remove`）
+
+## 后台入口
+- 后台首页：`/admin/index.jsp`
+- 分类管理：`/admin/categories`
+- 图书管理：`/admin/books`
+- 用户管理：`/admin/users`
 
 ## 项目结构
 ```
