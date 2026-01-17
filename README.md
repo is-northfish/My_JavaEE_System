@@ -40,15 +40,15 @@ mvn clean package
 
 ### 4. 访问系统
 本项目在 Codespaces 中通过 Port Forward 访问，容器内 localhost:8080 可能不可达。
-- 首页：`http://<你的 Codespaces 访问地址>:8080/`
-- 注册：`http://<你的 Codespaces 访问地址>:8080/register.jsp`
-- 登录：`http://<你的 Codespaces 访问地址>:8080/login.jsp`
-- 分类图书列表：`http://<你的 Codespaces 访问地址>:8080/books?categoryId=1`
-- 图书详情：`http://<你的 Codespaces 访问地址>:8080/book?id=1`
-- 购物车列表：`http://<你的 Codespaces 访问地址>:8080/cart/list`
-- 后台首页：`http://<你的 Codespaces 访问地址>:8080/admin/index.jsp`
-- 数据库测试：`http://<你的 Codespaces 访问地址>:8080/dbCheck`
-- Hello 测试：`http://<你的 Codespaces 访问地址>:8080/hello`
+- 首页：`http://localhost:8080/`
+- 注册：`http://localhost:8080/register.jsp`
+- 登录：`http://localhost:8080/login.jsp`
+- 分类图书列表：`http://localhost:8080/books?categoryId=1`
+- 图书详情：`http://localhost:8080/book?id=1`
+- 购物车列表：`http://localhost:8080/cart/list`
+- 后台首页：`http://localhost:8080/admin/index.jsp`
+- 数据库测试：`http://localhost:8080/dbCheck`
+- Hello 测试：`http://localhost:8080/hello`
 
 ### 默认账号
 - 管理员账号：`admin` / `admin123`
