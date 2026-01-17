@@ -67,7 +67,7 @@
 
 ## v0.4 购物车（Session 版）
 
-- [ ] CartItem（Book + quantity）
+- [√] CartItem（Book + quantity）
 - [ ] CartService（Map<bookId, CartItem>）
 - [ ] 加入购物车（数量累加）
 - [ ] 购物车列表 Servlet
