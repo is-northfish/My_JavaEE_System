@@ -6,6 +6,7 @@
   if (books == null) {
     books = java.util.Collections.emptyList();
   }
+  String error = (String) request.getAttribute("error");
 %>
 <!doctype html>
 <html>
@@ -21,6 +22,10 @@
   |
   <a href="<%= request.getContextPath() %>/admin/index.jsp">返回后台</a>
 </p>
+
+<% if (error != null && !error.isEmpty()) { %>
+  <p style="color:red;"><%= error %></p>
+<% } %>
 
 <% if (books.isEmpty()) { %>
   <p>暂无图书</p>

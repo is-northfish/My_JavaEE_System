@@ -79,6 +79,15 @@ public class BookDao {
         }
     }
 
+    public int deleteById(long id) throws SQLException {
+        String sql = "DELETE FROM book WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            return ps.executeUpdate();
+        }
+    }
+
     public List<Book> listByCategory(long categoryId) throws SQLException {
         String sql = "SELECT id, category_id, name, price, stock FROM book WHERE category_id = ? ORDER BY id";
         List<Book> books = new ArrayList<>();

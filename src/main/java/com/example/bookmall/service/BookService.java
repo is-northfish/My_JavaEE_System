@@ -103,4 +103,15 @@ public class BookService {
         }
         return null;
     }
+
+    public String deleteBook(long id) throws SQLException {
+        if (id <= 0) {
+            return "图书不存在";
+        }
+        int affected = bookDao.deleteById(id);
+        if (affected == 0) {
+            return "删除失败";
+        }
+        return null;
+    }
 }
