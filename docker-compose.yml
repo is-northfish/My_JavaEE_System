@@ -13,11 +13,6 @@ services:
   mysql:
     image: mysql:8.0
     restart: unless-stopped
-    # 核心变动：增加了 init-connect 和 skip-character-set-client-handshake
-    command: 
-      - --character-set-server=utf8mb4 
-      - --collation-server=utf8mb4_unicode_ci 
-      - --default-time-zone=+08:00
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: webshop
@@ -29,6 +24,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./mysql.cnf:/etc/mysql/conf.d/custom.cnf
 
   tomcat:
     build:
