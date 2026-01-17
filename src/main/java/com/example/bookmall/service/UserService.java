@@ -5,6 +5,7 @@ import com.example.bookmall.entity.User;
 import com.example.bookmall.util.PasswordUtil;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserService {
     private final UserDao userDao = new UserDao();
@@ -63,5 +64,20 @@ public class UserService {
         }
 
         return user;
+    }
+
+    public List<User> listAllUsers() throws SQLException {
+        return userDao.listAll();
+    }
+
+    public String disableUser(long id) throws SQLException {
+        if (id <= 0) {
+            return "用户不存在";
+        }
+        int affected = userDao.updateStatus(id, 0);
+        if (affected == 0) {
+            return "禁用失败";
+        }
+        return null;
     }
 }

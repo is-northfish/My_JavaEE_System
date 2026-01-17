@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
     public User findByUsername(String username) throws SQLException {
@@ -61,6 +63,37 @@ public class UserDao {
                 }
                 return 0;
             }
+        }
+    }
+
+    public List<User> listAll() throws SQLException {
+        String sql = "SELECT id, username, role, status, created_at FROM `user` ORDER BY id";
+        List<User> users = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getLong("id"));
+                user.setUsername(rs.getString("username"));
+                user.setRole(rs.getString("role"));
+                user.setStatus(rs.getInt("status"));
+                user.setCreatedAt(rs.getTimestamp("created_at"));
+                users.add(user);
+            }
+        }
+
+        return users;
+    }
+
+    public int updateStatus(long id, int status) throws SQLException {
+        String sql = "UPDATE `user` SET status = ? WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, status);
+            ps.setLong(2, id);
+            return ps.executeUpdate();
         }
     }
 
