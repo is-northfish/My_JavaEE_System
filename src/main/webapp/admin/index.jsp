@@ -7,20 +7,27 @@
 <head>
   <meta charset="UTF-8"/>
   <title>后台首页</title>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/app.css"/>
 </head>
-<body>
-<h2>后台管理</h2>
+<body class="app">
+  <main class="page">
+    <div class="header">
+      <div class="brand">后台管理</div>
+      <div class="nav">
+        <a href="<%= request.getContextPath() %>/">前台首页</a>
+      </div>
+    </div>
 
-<% if (username != null && !username.isEmpty()) { %>
-  <p>当前管理员：<%= username %></p>
-<% } %>
-
-<ul>
-  <li><a href="<%= request.getContextPath() %>/admin/categories">分类管理</a></li>
-  <li><a href="<%= request.getContextPath() %>/admin/books">图书管理</a></li>
-  <li><a href="<%= request.getContextPath() %>/admin/users">用户管理</a></li>
-</ul>
-
-<p><a href="<%= request.getContextPath() %>/">返回首页</a></p>
+    <div class="panel">
+      <% if (username != null && !username.isEmpty()) { %>
+        <p>当前管理员：<strong><%= username %></strong></p>
+      <% } %>
+      <div class="actions">
+        <a class="btn" href="<%= request.getContextPath() %>/admin/categories">分类管理</a>
+        <a class="btn secondary" href="<%= request.getContextPath() %>/admin/books">图书管理</a>
+        <a class="btn ghost" href="<%= request.getContextPath() %>/admin/users">用户管理</a>
+      </div>
+    </div>
+  </main>
 </body>
 </html>

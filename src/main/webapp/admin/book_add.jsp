@@ -21,41 +21,49 @@
 <head>
   <meta charset="UTF-8"/>
   <title>新增图书</title>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/app.css"/>
 </head>
-<body>
-<h2>新增图书</h2>
+<body class="app">
+  <main class="page">
+    <div class="header">
+      <div class="brand">新增图书</div>
+      <div class="nav">
+        <a href="<%= request.getContextPath() %>/admin/books">图书列表</a>
+      </div>
+    </div>
 
-<% if (error != null && !error.isEmpty()) { %>
-  <p style="color:red;"><%= error %></p>
-<% } %>
+    <% if (error != null && !error.isEmpty()) { %>
+      <div class="notice error"><%= error %></div>
+    <% } %>
 
-<form method="post" action="<%= request.getContextPath() %>/admin/book/add">
-  <label>分类：
-    <select name="categoryId" required>
-      <option value="">请选择</option>
-      <% for (Category category : categories) { %>
-        <option value="<%= category.getId() %>" <%= String.valueOf(category.getId()).equals(categoryId) ? "selected" : "" %>>
-          <%= category.getName() %>
-        </option>
-      <% } %>
-    </select>
-  </label>
-  <br/>
-  <label>书名：
-    <input type="text" name="name" value="<%= name %>" required />
-  </label>
-  <br/>
-  <label>价格：
-    <input type="text" name="price" value="<%= price %>" required />
-  </label>
-  <br/>
-  <label>库存：
-    <input type="number" name="stock" value="<%= stock %>" min="0" required />
-  </label>
-  <br/>
-  <button type="submit">提交</button>
-</form>
+    <div class="panel">
+      <form class="form" method="post" action="<%= request.getContextPath() %>/admin/book/add">
+        <label class="field">分类：
+          <select name="categoryId" required>
+            <option value="">请选择</option>
+            <% for (Category category : categories) { %>
+              <option value="<%= category.getId() %>" <%= String.valueOf(category.getId()).equals(categoryId) ? "selected" : "" %>>
+                <%= category.getName() %>
+              </option>
+            <% } %>
+          </select>
+        </label>
+        <label class="field">书名：
+          <input type="text" name="name" value="<%= name %>" required />
+        </label>
+        <label class="field">价格：
+          <input type="text" name="price" value="<%= price %>" required />
+        </label>
+        <label class="field">库存：
+          <input type="number" name="stock" value="<%= stock %>" min="0" required />
+        </label>
+        <button class="btn" type="submit">提交</button>
+      </form>
+    </div>
 
-<p><a href="<%= request.getContextPath() %>/admin/books">返回图书列表</a></p>
+    <div class="panel actions">
+      <a class="btn ghost" href="<%= request.getContextPath() %>/admin/books">返回图书列表</a>
+    </div>
+  </main>
 </body>
 </html>
