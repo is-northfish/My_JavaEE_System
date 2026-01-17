@@ -1,9 +1,14 @@
+-- 强制设置连接字符集
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
+
 CREATE DATABASE IF NOT EXISTS webshop
   DEFAULT CHARACTER SET utf8mb4
   DEFAULT COLLATE utf8mb4_0900_ai_ci;
 
 USE webshop;
 
+SET NAMES utf8mb4;
 SET time_zone = '+08:00';
 
 CREATE TABLE IF NOT EXISTS `user` (

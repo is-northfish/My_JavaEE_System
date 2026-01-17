@@ -24,7 +24,8 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/01-init.sql
-      - ./mysql.cnf:/etc/mysql/conf.d/custom.cnf
+      - ./mysql.cnf:/etc/mysql/conf.d/custom.cnf:ro
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --init-connect='SET NAMES utf8mb4'
 
   tomcat:
     build:
