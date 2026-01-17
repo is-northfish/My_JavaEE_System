@@ -1,0 +1,55 @@
+package com.example.bookmall.dao;
+
+import com.example.bookmall.entity.Book;
+import com.example.bookmall.util.DBUtil;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BookDao {
+    public Book findById(long id) throws SQLException {
+        String sql = "SELECT id, category_id, name, price, stock FROM book WHERE id = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+                return null;
+            }
+        }
+    }
+
+    public List<Book> listByCategory(long categoryId) throws SQLException {
+        String sql = "SELECT id, category_id, name, price, stock FROM book WHERE category_id = ? ORDER BY id";
+        List<Book> books = new ArrayList<>();
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, categoryId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    books.add(mapRow(rs));
+                }
+            }
+        }
+
+        return books;
+    }
+
+    private Book mapRow(ResultSet rs) throws SQLException {
+        Book book = new Book();
+        book.setId(rs.getLong("id"));
+        book.setCategoryId(rs.getLong("category_id"));
+        book.setName(rs.getString("name"));
+        book.setPrice(rs.getBigDecimal("price"));
+        book.setStock(rs.getInt("stock"));
+        return book;
+    }
+}
