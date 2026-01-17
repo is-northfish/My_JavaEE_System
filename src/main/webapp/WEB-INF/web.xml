@@ -7,8 +7,27 @@
 
   <display-name>app</display-name>
 
+
   <welcome-file-list>
     <welcome-file>home</welcome-file>
   </welcome-file-list>
+
+  <!-- 让 Tomcat 负责 /assets 下的静态资源，避免被servlet/filter 转发成 HTML -->
+  <servlet>
+    <servlet-name>default</servlet-name>
+    <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/assets/*</url-pattern>
+  </servlet-mapping>
+
+
+  <mime-mapping>
+    <extension>css</extension>
+    <mime-type>text/css</mime-type>
+  </mime-mapping>
 
 </web-app>

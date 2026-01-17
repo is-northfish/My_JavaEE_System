@@ -13,44 +13,59 @@
 <head>
   <meta charset="UTF-8"/>
   <title>分类列表</title>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/app.css"/>
 </head>
-<body>
-<h2>分类列表</h2>
+<body class="app">
+  <main class="page">
+    <header class="header">
+      <div class="brand">📂 分类管理</div>
+      <nav class="nav">
+        <a href="<%= request.getContextPath() %>/admin/index.jsp">后台首页</a>
+      </nav>
+    </header>
 
-<p>
-  <a href="<%= request.getContextPath() %>/admin/category/add">新增分类</a>
-  |
-  <a href="<%= request.getContextPath() %>/admin/index.jsp">返回后台</a>
-</p>
+    <div class="panel actions">
+      <a class="btn" href="<%= request.getContextPath() %>/admin/category/add">➕ 新增分类</a>
+      <a class="btn ghost" href="<%= request.getContextPath() %>/admin/index.jsp">返回</a>
+    </div>
 
-<% if (error != null && !error.isEmpty()) { %>
-  <p style="color:red;"><%= error %></p>
-<% } %>
-
-<% if (categories.isEmpty()) { %>
-  <p>暂无分类</p>
-<% } else { %>
-  <table border="1" cellpadding="6" cellspacing="0">
-    <tr>
-      <th>ID</th>
-      <th>名称</th>
-      <th>操作</th>
-    </tr>
-    <% for (Category category : categories) { %>
-      <tr>
-        <td><%= category.getId() %></td>
-        <td><%= category.getName() %></td>
-        <td>
-          <a href="<%= request.getContextPath() %>/admin/category/edit?id=<%= category.getId() %>">编辑</a>
-          |
-          <form method="post" action="<%= request.getContextPath() %>/admin/category/delete" style="display:inline;">
-            <input type="hidden" name="id" value="<%= category.getId() %>"/>
-            <button type="submit">删除</button>
-          </form>
-        </td>
-      </tr>
+    <% if (error != null && !error.isEmpty()) { %>
+      <div class="notice error"><%= error %></div>
     <% } %>
-  </table>
-<% } %>
+
+    <div class="panel">
+      <% if (categories.isEmpty()) { %>
+        <div style="text-align: center; padding: 40px 0;">
+          <p style="font-size: 48px; margin: 0;">📭</p>
+          <p style="color: var(--muted); margin: 12px 0 0 0;">暂无分类</p>
+        </div>
+      <% } else { %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>分类名称</th>
+              <th style="width: 200px;">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (Category category : categories) { %>
+              <tr>
+                <td><span style="background: #f0e8dd; padding: 2px 8px; border-radius: 4px; font-weight: 600; font-size: 12px;"><%= category.getId() %></span></td>
+                <td><strong><%= category.getName() %></strong></td>
+                <td class="actions">
+                  <a class="btn secondary" href="<%= request.getContextPath() %>/admin/category/edit?id=<%= category.getId() %>">✏️ 编辑</a>
+                  <form method="post" action="<%= request.getContextPath() %>/admin/category/delete" style="display:inline;">
+                    <input type="hidden" name="id" value="<%= category.getId() %>"/>
+                    <button class="btn ghost" type="submit">🗑️ 删除</button>
+                  </form>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </main>
 </body>
 </html>

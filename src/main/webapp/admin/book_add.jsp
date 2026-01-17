@@ -21,41 +21,59 @@
 <head>
   <meta charset="UTF-8"/>
   <title>新增图书</title>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/app.css"/>
 </head>
-<body>
-<h2>新增图书</h2>
+<body class="app">
+  <main class="page">
+    <header class="header">
+      <div class="brand">➕ 新增图书</div>
+      <nav class="nav">
+        <a href="<%= request.getContextPath() %>/admin/books">返回列表</a>
+      </nav>
+    </header>
 
-<% if (error != null && !error.isEmpty()) { %>
-  <p style="color:red;"><%= error %></p>
-<% } %>
+    <div class="grid two">
+      <div></div>
+      <div>
+        <% if (error != null && !error.isEmpty()) { %>
+          <div class="notice error"><%= error %></div>
+        <% } %>
 
-<form method="post" action="<%= request.getContextPath() %>/admin/book/add">
-  <label>分类：
-    <select name="categoryId" required>
-      <option value="">请选择</option>
-      <% for (Category category : categories) { %>
-        <option value="<%= category.getId() %>" <%= String.valueOf(category.getId()).equals(categoryId) ? "selected" : "" %>>
-          <%= category.getName() %>
-        </option>
-      <% } %>
-    </select>
-  </label>
-  <br/>
-  <label>书名：
-    <input type="text" name="name" value="<%= name %>" required />
-  </label>
-  <br/>
-  <label>价格：
-    <input type="text" name="price" value="<%= price %>" required />
-  </label>
-  <br/>
-  <label>库存：
-    <input type="number" name="stock" value="<%= stock %>" min="0" required />
-  </label>
-  <br/>
-  <button type="submit">提交</button>
-</form>
+        <div class="panel">
+          <form class="form" method="post" action="<%= request.getContextPath() %>/admin/book/add">
+            <div class="field">
+              <label for="categoryId">所属分类</label>
+              <select id="categoryId" name="categoryId" required>
+                <option value="">-- 请选择分类 --</option>
+                <% for (Category category : categories) { %>
+                  <option value="<%= category.getId() %>" <%= String.valueOf(category.getId()).equals(categoryId) ? "selected" : "" %>>
+                    <%= category.getName() %>
+                  </option>
+                <% } %>
+              </select>
+            </div>
+            <div class="field">
+              <label for="name">书名</label>
+              <input id="name" type="text" name="name" value="<%= name %>" placeholder="输入图书名称" required />
+            </div>
+            <div class="field">
+              <label for="price">价格（元）</label>
+              <input id="price" type="text" name="price" value="<%= price %>" placeholder="0.00" required />
+            </div>
+            <div class="field">
+              <label for="stock">库存数量</label>
+              <input id="stock" type="number" name="stock" value="<%= stock %>" placeholder="0" min="0" required />
+            </div>
+            <button class="btn" type="submit">✓ 添加图书</button>
+          </form>
+        </div>
 
-<p><a href="<%= request.getContextPath() %>/admin/books">返回图书列表</a></p>
+        <div class="panel actions">
+          <a class="btn ghost" href="<%= request.getContextPath() %>/admin/books">取消</a>
+        </div>
+      </div>
+      <div></div>
+    </div>
+  </main>
 </body>
 </html>

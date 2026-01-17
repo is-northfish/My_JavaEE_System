@@ -11,21 +11,40 @@
 <head>
   <meta charset="UTF-8"/>
   <title>新增分类</title>
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/app.css"/>
 </head>
-<body>
-<h2>新增分类</h2>
+<body class="app">
+  <main class="page">
+    <header class="header">
+      <div class="brand">➕ 新增分类</div>
+      <nav class="nav">
+        <a href="<%= request.getContextPath() %>/admin/categories">返回列表</a>
+      </nav>
+    </header>
 
-<% if (error != null && !error.isEmpty()) { %>
-  <p style="color:red;"><%= error %></p>
-<% } %>
+    <div class="grid two">
+      <div></div>
+      <div>
+        <% if (error != null && !error.isEmpty()) { %>
+          <div class="notice error"><%= error %></div>
+        <% } %>
 
-<form method="post" action="<%= request.getContextPath() %>/admin/category/add">
-  <label>分类名称：
-    <input type="text" name="name" value="<%= name %>" required />
-  </label>
-  <button type="submit">提交</button>
-</form>
+        <div class="panel">
+          <form class="form" method="post" action="<%= request.getContextPath() %>/admin/category/add">
+            <div class="field">
+              <label for="name">分类名称</label>
+              <input id="name" type="text" name="name" value="<%= name %>" placeholder="输入分类名称" required />
+            </div>
+            <button class="btn" type="submit">✓ 创建分类</button>
+          </form>
+        </div>
 
-<p><a href="<%= request.getContextPath() %>/admin/categories">返回分类列表</a></p>
+        <div class="panel actions">
+          <a class="btn ghost" href="<%= request.getContextPath() %>/admin/categories">取消</a>
+        </div>
+      </div>
+      <div></div>
+    </div>
+  </main>
 </body>
 </html>

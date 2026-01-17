@@ -2,8 +2,6 @@ package com.example.bookmall.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -25,8 +23,7 @@ public class EncodingFilter implements Filter {
         // 设置请求编码
         request.setCharacterEncoding("UTF-8");
         
-        // 设置响应编码
-        response.setContentType("text/html;charset=UTF-8");
+        // 设置响应编码（不强制设置 Content-Type，避免覆盖静态资源类型）
         response.setCharacterEncoding("UTF-8");
         
         // 继续处理请求

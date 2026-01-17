@@ -97,6 +97,18 @@ public class UserDao {
         }
     }
 
+    public int updateCredentials(long id, String username, String passwordHash, String salt) throws SQLException {
+        String sql = "UPDATE `user` SET username = ?, password_hash = ?, salt = ? WHERE id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setString(2, passwordHash);
+            ps.setString(3, salt);
+            ps.setLong(4, id);
+            return ps.executeUpdate();
+        }
+    }
+
     private User mapRow(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getLong("id"));
