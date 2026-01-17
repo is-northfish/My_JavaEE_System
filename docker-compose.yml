@@ -26,13 +26,12 @@ services:
       - mysql-data:/var/lib/mysql
 
   tomcat:
-    image: tomcat:9.0-jdk17-temurin
+    build:
+      context: .
+      dockerfile: Dockerfile.tomcat
     restart: unless-stopped
     ports:
       - "8080:8080"
-    volumes:
-      # 把你打出来的 war 映射为 ROOT.war，这样访问 / 就是你的项目
-      - ./target/app.war:/usr/local/tomcat/webapps/ROOT.war:ro
     depends_on:
       - mysql
 
